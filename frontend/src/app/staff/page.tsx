@@ -19,6 +19,7 @@ import { useState } from "react";
 import Staff from "@/components/admin/staff/Staff";
 import Dashboard from "@/components/staff/dashboard/Dashboard";
 import Product from "@/components/staff/product/product";
+import Billing from "@/components/staff/billing/billing";
 
 export default function Page() {
        const [CurrentComponent, setCurrentComponent] = useState(() => Dashboard);
@@ -28,7 +29,7 @@ export default function Page() {
               { name: "Product", icon: Package, compo:  Product},
               { name: "Stock", icon: Warehouse, compo: Stoke },  // same as admin
               { name: "Expiry Alert", icon: AlertTriangle, compo: Expiry },// same as admin
-              { name: "Billing", icon: Building, compo: Expiry },
+              { name: "Billing", icon: Building, compo: Billing },
               { name: "profile", icon: User, compo: Expiry },
               
        ];
