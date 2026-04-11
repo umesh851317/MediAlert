@@ -1,12 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import {
-       BadgeIndianRupee,
-       IndianRupee,
-       ShoppingCart,
-       Trash2,
-       Plus,
-       Minus,
-} from "lucide-react";
+import React, {  useState } from "react";
+
 import CreateBill from "./createBill";
 import BillingHistory from "./BillingHistory";
 
