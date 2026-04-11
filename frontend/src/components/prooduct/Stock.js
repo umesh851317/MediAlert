@@ -1,14 +1,11 @@
 import {
   AlertCircle,
-  CardSimSim,
   Edit,
   Package,
   Trash2,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import AddCompo from "./addCompo";
-// import AddCompo from "../addCompo";
-// import AddCompo from "../component/addComponent/addCompo";
 
 const Product = () => {
   const [products, setProducts] = useState([]);

@@ -127,7 +127,7 @@ function Login() {
 
           {/* Forgot Password */}
           <div className="flex items-center justify-end text-sm">
-            <a href="#" className="text-blue-600 text-sm hover:underline">
+            <a href="/forgot-password" className="text-blue-600 text-sm hover:underline">
               Forgot password?
             </a>
           </div>
@@ -155,9 +155,9 @@ function Login() {
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-600">
           Need help?{" "}
-          <a href="#" className="text-blue-600 font-medium hover:underline">
+          <button className="text-blue-600 font-medium hover:underline">
             Contact Support
-          </a>
+          </button>
         </div>
       </div>
     </div>
