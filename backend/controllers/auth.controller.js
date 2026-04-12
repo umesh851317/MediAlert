@@ -16,12 +16,15 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
+    console.log("Entered password:", password);
+    console.log("Stored hash:", user.password);
 
     const isMatch = await bcrypt.compare(password, user.password);
-
+    console.log("Match result:", isMatch);
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Password does't match" });
     }
+
 
     const token = jwt.sign(
       {
