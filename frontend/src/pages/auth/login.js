@@ -20,8 +20,13 @@ function Login() {
     setIsLoading(true);
     setShowError(false);
 
+    const API_URL =
+      process.env.REACT_APP_API_URL ||
+      "https://medialert-backend-tz4c.onrender.com";
+
+    console.log("API URL:", API_URL); 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -29,6 +34,8 @@ function Login() {
           password: formData.password,
         }),
       });
+
+      console.log("ghj", process.env.REACT_APP_API_URL);
 
       const data = await res.json();
       console.log("Login Response:", data);
