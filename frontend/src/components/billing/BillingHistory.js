@@ -9,6 +9,10 @@ import {
 } from "lucide-react";
 import BillPreview from "./billPreview";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://medialert-backend-tz4c.onrender.com";
+
 const BillingHistory = () => {
   const [bills, setBills] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,8 +53,7 @@ const BillingHistory = () => {
         const userId = user?.userId;
         const storeId = user?.storeId;
 
-        const res = await fetch(
-          "http://localhost:5000/api/billing/billHistory",
+        const res = await fetch(`${API_URL}/api/billing/billHistory`,
           {
             method: "GET",
             headers: {

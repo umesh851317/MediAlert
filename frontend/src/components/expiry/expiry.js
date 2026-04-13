@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { AlertTriangle, Clock, Edit, Eye, XCircle } from "lucide-react";
 
+
+const API_URL =
+       process.env.REACT_APP_API_URL ||
+       "https://medialert-backend-tz4c.onrender.com";
+
+
 const Expiry = () => {
        const [products, setProducts] = useState([]);
        const [loading, setLoading] = useState(true);
@@ -79,7 +85,7 @@ const Expiry = () => {
                      const userId = user?.token;
                      const storeId = user?.storeId;
                      try {
-                            const res = await fetch("http://localhost:5000/api/inventory", {
+                            const res = await fetch(`${API_URL}/api/inventory`, {
                                    headers: {
                                           "user-id": userId,
                                           "store-id": storeId,
@@ -215,8 +221,8 @@ const Expiry = () => {
                                                                <tr
                                                                       key={item._id}
                                                                       className={`border-t ${status === "expired"
-                                                                                    ? "bg-red-50 hover:bg-red-100"
-                                                                                    : "bg-white hover:bg-gray-50"
+                                                                             ? "bg-red-50 hover:bg-red-100"
+                                                                             : "bg-white hover:bg-gray-50"
                                                                              }`}
                                                                >
                                                                       <td className="px-4 py-3">{item.name}</td>
@@ -231,10 +237,10 @@ const Expiry = () => {
 
                                                                       <td
                                                                              className={`px-4 py-3 font-medium ${status === "expired"
-                                                                                           ? "text-red-600"
-                                                                                           : status === "expiring-soon"
-                                                                                                  ? "text-yellow-600"
-                                                                                                  : "text-green-600"
+                                                                                    ? "text-red-600"
+                                                                                    : status === "expiring-soon"
+                                                                                           ? "text-yellow-600"
+                                                                                           : "text-green-600"
                                                                                     }`}
                                                                       >
                                                                              {status === "expired"
@@ -245,12 +251,12 @@ const Expiry = () => {
                                                                       <td className="px-4 py-3">
                                                                              <span
                                                                                     className={`px-2 py-1 text-sm rounded-lg font-medium ${status === "expired"
-                                                                                                  ? "text-red-600 bg-red-100"
-                                                                                                  : status === "expiring-soon"
-                                                                                                         ? "text-amber-600 bg-amber-100"
-                                                                                                         : status === "Out of Stock"
-                                                                                                                ? "text-red-600 bg-red-100"
-                                                                                                                : "text-green-600 bg-green-100"
+                                                                                           ? "text-red-600 bg-red-100"
+                                                                                           : status === "expiring-soon"
+                                                                                                  ? "text-amber-600 bg-amber-100"
+                                                                                                  : status === "Out of Stock"
+                                                                                                         ? "text-red-600 bg-red-100"
+                                                                                                         : "text-green-600 bg-green-100"
                                                                                            }`}
                                                                              >
                                                                                     {status}

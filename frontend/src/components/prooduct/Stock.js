@@ -7,6 +7,10 @@ import {
 import React, { useEffect, useState } from "react";
 import AddCompo from "./addCompo";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://medialert-backend-tz4c.onrender.com";
+
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -83,7 +87,7 @@ const Product = () => {
         const userId = user?.token;
         const storeId = user?.storeId;
 
-        const res = await fetch("http://localhost:5000/api/inventory", {
+        const res = await fetch(`${API_URL}/api/inventory`, {
           headers: {
             "user-id": userId,
             "store-id": storeId,
@@ -91,7 +95,6 @@ const Product = () => {
         });
 
         const data = await res.json();
-        // console.log("DATA:", data.map((i)=>i._id));
         setProducts(data);
 
       } catch (err) {

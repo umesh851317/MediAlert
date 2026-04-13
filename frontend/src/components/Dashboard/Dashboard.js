@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import Charts from "../charts";
 import StatCard from "./stateCard";
 
+const API_URL =
+       process.env.REACT_APP_API_URL ||
+       "https://medialert-backend-tz4c.onrender.com";
+
 const Dashboard = () => {
        const [stats, setStats] = useState({
               totalProducts: 0,
@@ -23,7 +27,7 @@ const Dashboard = () => {
 
                             if (!token) return;
 
-                            const res = await fetch("http://localhost:5000/api/dashboard", {
+                            const res = await fetch(`${API_URL}/api/dashboard`, {
                                    headers: {
                                           Authorization: `Bearer ${token}`,
                                    },
@@ -47,7 +51,7 @@ const Dashboard = () => {
                      const userId = user?.token;
                      const storeId = user?.storeId;
                      try {
-                            const res = await fetch("http://localhost:5000/api/billing/monthly-revenue", {
+                            const res = await fetch(`${API_URL}/api/billing/monthly-revenue`, {
                                    method: "GET",
                                    headers: {
                                           "Content-Type": "application/json",
@@ -169,14 +173,14 @@ const Dashboard = () => {
 
                                                         <span
                                                                className={`px-3 py-1 rounded-lg text-sm font-medium ${item.alertType === "out"
-                                                                             ? "bg-gray-200 text-gray-800"
-                                                                             : item.alertType === "expired"
-                                                                                    ? "bg-red-100 text-red-600"
-                                                                                    : item.alertType === "expiring"
-                                                                                           ? "bg-orange-100 text-orange-600"
-                                                                                           : item.alertType === "low"
-                                                                                                  ? "bg-yellow-100 text-yellow-600"
-                                                                                                  : ""
+                                                                      ? "bg-gray-200 text-gray-800"
+                                                                      : item.alertType === "expired"
+                                                                             ? "bg-red-100 text-red-600"
+                                                                             : item.alertType === "expiring"
+                                                                                    ? "bg-orange-100 text-orange-600"
+                                                                                    : item.alertType === "low"
+                                                                                           ? "bg-yellow-100 text-yellow-600"
+                                                                                           : ""
                                                                       }
 `}
                                                         >

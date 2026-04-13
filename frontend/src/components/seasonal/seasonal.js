@@ -9,6 +9,10 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://medialert-backend-tz4c.onrender.com";
+
 const Seasonal = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [productData, setProductData] = useState([]);
@@ -35,10 +39,10 @@ const Seasonal = () => {
       };
 
       const [categoryRes, productRes] = await Promise.all([
-        fetch("http://localhost:5000/api/seasonal/category", {
+        fetch(`${API_URL}/api/seasonal/category`, {
           headers: commonHeaders,
         }),
-        fetch("http://localhost:5000/api/seasonal/products", {
+        fetch(`${API_URL}/api/seasonal/products`, {
           headers: commonHeaders,
         }),
       ]);
@@ -53,9 +57,6 @@ const Seasonal = () => {
       if (!productRes.ok) {
         throw new Error(productJson.message || "Failed to fetch product data");
       }
-
-      console.log("categoryData:", categoryJson);
-      console.log("productData:", productJson);
 
       setCategoryData(Array.isArray(categoryJson) ? categoryJson : []);
       setProductData(Array.isArray(productJson) ? productJson : []);

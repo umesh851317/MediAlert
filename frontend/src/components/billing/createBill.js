@@ -8,6 +8,10 @@ import {
        Minus,
 } from "lucide-react";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://medialert-backend-tz4c.onrender.com";
+
 const CreateBill = () => {
        const [search, setSearch] = useState("");
        const [results, setResults] = useState([]);
@@ -55,7 +59,7 @@ const CreateBill = () => {
               };
 
               try {
-                     const res = await fetch("http://localhost:5000/api/billing", {
+                     const res = await fetch(`${API_URL}/api/billing`, {
                             method: "POST",
                             headers: {
                                    "Content-Type": "application/json",
@@ -89,7 +93,7 @@ const CreateBill = () => {
                      const userId = user?.token;
                      const storeId = user?.storeId;
                      try {
-                            const res = await fetch("http://localhost:5000/api/billing/monthly-revenue", {
+                            const res = await fetch(`${API_URL}/api/billing/monthly-revenue`, {
                                    method: "GET",
                                    headers: {
                                           "Content-Type": "application/json",
@@ -129,8 +133,7 @@ const CreateBill = () => {
                      try {
                             setLoading(true);
 
-                            const res = await fetch(
-                                   `http://localhost:5000/api/inventory/search?q=${search}`,
+                            const res = await fetch(`${API_URL}/api/inventory/search?q=${search}`,
                                    {
                                           headers: {
                                                  "Content-Type": "application/json",
@@ -141,7 +144,6 @@ const CreateBill = () => {
                             );
 
                             const data = await res.json();
-                            console.log("search result:", data);
 
                             setResults(Array.isArray(data) ? data : data.data || []);
                      } catch (err) {

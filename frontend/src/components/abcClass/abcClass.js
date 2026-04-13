@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import ABCXYZMatrix from "./ABCXYZMatrix";
 import ProductTable from "./productTable";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://medialert-backend-tz4c.onrender.com";
+
 const AbcClass = () => {
        const [abcFilter, setAbcFilter] = useState("all");
        const [xyzFilter, setXyzFilter] = useState("all");
@@ -29,7 +33,7 @@ const AbcClass = () => {
               try {
                      setLoading(true);
 
-                     const res = await fetch("http://localhost:5000/api/analysis/abc-xyz", {
+                     const res = await fetch(`${API_URL}/api/analysis/abc-xyz`, {
                             method: "GET",
                             headers: {
                                    "Content-Type": "application/json",
@@ -39,9 +43,7 @@ const AbcClass = () => {
                      });
 
                      const data = await res.json();
-                     console.log("data", data);
-
-
+                     
                      if (data.success) {
                             setSummary(data.summary);
                             setMatrix(data.matrix);

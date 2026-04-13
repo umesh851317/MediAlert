@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 
+
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://medialert-backend-tz4c.onrender.com";
+
 const AddCompo = ({ onClose, onAddSuccess }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -49,7 +54,7 @@ const AddCompo = ({ onClose, onAddSuccess }) => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/inventory", {
+      const res = await fetch(`${API_URL}/api/inventory`  , {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

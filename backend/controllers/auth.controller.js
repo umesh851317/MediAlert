@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
 
   } catch (error) {
     console.error("LOGIN ERROR:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: `server error ${error.message}` });
   }
 };// ================= REGISTER =================
 exports.register = async (req, res) => {

@@ -7,6 +7,12 @@ import {
 } from "lucide-react";
 import SummaryCard from "./SummaryCard";
 
+
+const API_URL =
+       process.env.REACT_APP_API_URL ||
+       "https://medialert-backend-tz4c.onrender.com";
+
+
 const Forecast = () => {
        const [data, setData] = useState([]);
        const [loading, setLoading] = useState(true);
@@ -18,7 +24,7 @@ const Forecast = () => {
                      const userId = user?.token;
                      const storeId = user?.storeId;
                      try {
-                            const res = await fetch("http://localhost:5000/api/forecast", {
+                            const res = await fetch(`${API_URL}/api/forecast`, {
                                    headers: {
                                           "user-id": userId,
                                           "store-id": storeId,
@@ -29,7 +35,6 @@ const Forecast = () => {
 
                             // Safe handling for array / object response
                             setData(Array.isArray(result) ? result : result.data || []);
-                            console.log("Forecast response:", result);
                      } catch (err) {
                             console.error("Failed to fetch forecast", err);
                      } finally {
@@ -125,11 +130,11 @@ const Forecast = () => {
                                                         </tr>
                                                  </thead>
 
-                                                 <tbody>
+                                                 <tbody >
                                                         {filtered.length > 0 ? (
                                                                filtered.map((item) => (
                                                                       <tr
-                                                                             key={item._id}
+                                                                             key={item.productId}
                                                                              className="border-t hover:bg-gray-50"
                                                                       >
                                                                              <td className="px-6 py-3 font-medium">{item.name}</td>
@@ -151,10 +156,10 @@ const Forecast = () => {
                                                                              <td className="px-6 py-3 text-center">
                                                                                     <span
                                                                                            className={`font-semibold ${item.growthRate > 0
-                                                                                                         ? "text-green-600"
-                                                                                                         : item.growthRate < 0
-                                                                                                                ? "text-red-600"
-                                                                                                                : "text-gray-600"
+                                                                                                  ? "text-green-600"
+                                                                                                  : item.growthRate < 0
+                                                                                                         ? "text-red-600"
+                                                                                                         : "text-gray-600"
                                                                                                   }`}
                                                                                     >
                                                                                            {item.growthRate}%
@@ -164,10 +169,10 @@ const Forecast = () => {
                                                                              <td className="px-6 py-3 text-center">
                                                                                     <span
                                                                                            className={`font-medium ${item.coverageDays < 15
-                                                                                                         ? "text-red-600"
-                                                                                                         : item.coverageDays <= 30
-                                                                                                                ? "text-yellow-600"
-                                                                                                                : "text-green-600"
+                                                                                                  ? "text-red-600"
+                                                                                                  : item.coverageDays <= 30
+                                                                                                         ? "text-yellow-600"
+                                                                                                         : "text-green-600"
                                                                                                   }`}
                                                                                     >
                                                                                            {item.coverageDays} days
@@ -181,8 +186,8 @@ const Forecast = () => {
                                                                              <td className="px-6 py-3 text-center">
                                                                                     <span
                                                                                            className={`px-3 py-1 rounded-lg text-sm font-semibold ${item.reorderQty > 0
-                                                                                                         ? "bg-red-100 text-red-600"
-                                                                                                         : "bg-green-100 text-green-600"
+                                                                                                  ? "bg-red-100 text-red-600"
+                                                                                                  : "bg-green-100 text-green-600"
                                                                                                   }`}
                                                                                     >
                                                                                            {item.reorderQty > 0
