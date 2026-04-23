@@ -1,8 +1,6 @@
 import {
-  Bell,
   BriefcaseMedical,
   Menu,
-  Search,
   User,
 } from "lucide-react";
 import React, { useState } from "react";

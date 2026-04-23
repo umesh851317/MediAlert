@@ -55,8 +55,8 @@ const AddCompo = ({ onClose, onAddSuccess, product, isEdit }) => {
 
     try {
       const url = isEdit
-        ? `http://localhost:5000/api/inventory/${product._id}`
-        : `http://localhost:5000/api/inventory`;
+        ? `${API_URL}/api/inventory/${product._id}`
+        : `${API_URL}/api/inventory`;
 
       const method = isEdit ? "PUT" : "POST";
       console.log("Editing ID:", product?._id);

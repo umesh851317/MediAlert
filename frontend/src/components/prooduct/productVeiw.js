@@ -145,11 +145,6 @@ const ProductVeiw = ({ product, onClose }) => {
     };
   });
 
-  // ✅ SALES HISTORY (dummy)
-  const salesHistory = [
-    { date: "2026-04-10", quantity: 24, price: 12.5, billId: "INV-8472", total: 300 },
-    { date: "2026-04-08", quantity: 18, price: 12.5, billId: "INV-8461", total: 225 },
-  ];
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4">

@@ -3,17 +3,12 @@ import NavBar from '../../components/navbar/Navbar';
 import {
   AlertTriangle,
   Building,
-  Layers,
   LayoutDashboard,
   Package,
-  TrendingUp,
 } from "lucide-react";
 import Dashboard from '../../components/Dashboard/Dashboard';
 import Expiry from '../../components/expiry/expiry';
-import Forecast from '../../components/forcast/forecast';
 import Billing from '../../components/billing/billing';
-import Seasonal from '../../components/seasonal/seasonal';
-import AbcClass from '../../components/abcClass/abcClass';
 import Product from '../../components/prooduct/Stock';
 
 const Admin = () => {
@@ -21,9 +16,6 @@ const Admin = () => {
     { name: "Dashboard", icon: LayoutDashboard, compo: Dashboard },
     { name: "Product", icon: Package, compo: Product },
     { name: "Expiry Alert", icon: AlertTriangle, compo: Expiry },
-    // { name: "Sales Forecasting", icon: TrendingUp, compo: Forecast },
-    // { name: "Seasonal Demand", icon: TrendingUp, compo: Seasonal },
-    // { name: "ABC-XYZ Class", icon: Layers, compo: AbcClass },
     { name: "Billing", icon: Building, compo: Billing },
   ];
 
