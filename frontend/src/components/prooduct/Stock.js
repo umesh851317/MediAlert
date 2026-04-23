@@ -1,11 +1,13 @@
 import {
   AlertCircle,
   Edit,
+  Eye,
   Package,
   Trash2,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import AddCompo from "./addCompo";
+import ProductVeiw from "./productVeiw";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
@@ -19,6 +21,9 @@ const Product = () => {
   const [dayFilter, setDayFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const [isView, setIsView] = useState(false);
 
   const getStatus = (item) => {
     if (item.quantity === 0) return "Out of Stock";
@@ -78,6 +83,40 @@ const Product = () => {
     return matchesSearch && matchesCategory && statusMatch && matchesDays;
   });
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
+    if (!confirmDelete) return;
+
+    try {
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      const userId = user?._id; // FIXED
+      const storeId = user?.storeId;
+
+      const res = await fetch(`http://localhost:5000/api/inventory/${id}`, {
+        method: "DELETE",
+        headers: {
+          "user-id": userId,
+          "store-id": storeId,
+        },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Delete failed");
+        return;
+      }
+
+      // ✅ remove from UI instantly (no reload)
+      setProducts((prev) => prev.filter((item) => item._id !== id));
+
+      alert("Deleted successfully");
+
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Server error");
+    }
+  };
 
   // FETCH DATA
   useEffect(() => {
@@ -127,7 +166,24 @@ const Product = () => {
       </div>
 
       {/* ADD PRODUCT MODAL */}
-      {open && <AddCompo onClose={() => setOpen(false)} />}
+      {open && (
+        <AddCompo
+          onClose={() => {
+            setOpen(false);
+            setSelectedProduct(null);
+            setIsEdit(false);
+          }}
+          product={selectedProduct}
+          isEdit={isEdit}
+        />
+      )}
+
+      {isView && (
+        <ProductVeiw
+          product={selectedProduct}
+          onClose={() => setIsView(false)}
+        />
+      )}
 
       <div className="grid grid-cols-3 gap-5">
         <div className="flex justify-between items-center p-4 bg-white rounded-xl shadow">
@@ -216,7 +272,7 @@ const Product = () => {
               <th className="px-4 py-2 w-30">Min Qty</th>
               <th className="px-4 py-2">Price</th>
               <th className="px-4 py-2">Expiry</th>
-              <th className="px-4 py-2">Status</th>
+              <th className="px-4 py-2 text-center">Status</th>
               <th className="px-4 py-2 text-right">Actions</th>
             </tr>
           </thead>
@@ -253,17 +309,33 @@ const Product = () => {
                       {item.expiryDate.split("T")[0]}
                     </td>
 
-                    <td>
+                    <td className="text-center">
                       <span className={`px-2 py-1 rounded-lg text-sm font-medium ${getStatusStyle(status)}`} >
                         {status}
                       </span>
                     </td>
 
-                    <td className="px-4 py-2 text-right flex justify-end gap-4">
-                      <button className="text-gray-600">
+                    <td className="px-4 py-2 text-center flex justify-end gap-4">
+                      <button onClick={() => {
+                        setSelectedProduct(item);
+                        setIsView(true);
+                      }} className="text-gray-500 hover:text-blue-600">
+                        <Eye size={20} />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSelectedProduct(item);
+                          setIsEdit(true);
+                          setOpen(true);
+                        }}
+                        className="text-gray-600"
+                      >
                         <Edit size={18} />
                       </button>
-                      <button className="text-red-500">
+                      <button
+                        onClick={() => handleDelete(item._id)}
+                        className="text-red-500"
+                      >
                         <Trash2 size={18} />
                       </button>
                     </td>

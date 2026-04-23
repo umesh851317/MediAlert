@@ -9,11 +9,27 @@ import {
 } from "recharts";
 
 const Charts = ({ revenueDatas, data }) => {
-       
+       console.log(revenueDatas);
+
        return (
               <div className="bg-white rounded-xl shadow p-4">
-                     <h2 className="text-lg font-semibold mb-4">{data}</h2>
+                     <div className="flex justify-between items-center mb-4">
+                            <div>
+                                   <h2 className="text-xl font-semibold">{data }</h2>
+                                   <p className="text-sm text-gray-500">
+                                          Performance trends over time
+                                   </p>
+                            </div>
 
+                            <div className="flex gap-2">
+                                   <button className="px-3 py-1 rounded-full bg-gray-200">
+                                          Weekly
+                                   </button>
+                                   <button className="px-3 py-1 rounded-full bg-black text-white">
+                                          Monthly
+                                   </button>
+                            </div>
+                     </div>
                      <div className="w-full h-64">
                             <ResponsiveContainer width="100%" height="100%">
                                    <LineChart data={revenueDatas}

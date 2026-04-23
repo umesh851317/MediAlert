@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Bill = require("../models/Bill");
 const Inventory = require("../models/Inventory");
 const Sale = require("../models/Sale");
@@ -183,6 +184,7 @@ exports.getMonthlyRevenue = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.billHistory = async (req, res) => {
   try {
     const storeId = req.headers["store-id"];
@@ -197,6 +199,60 @@ exports.billHistory = async (req, res) => {
     }
 
     const bills = await Bill.find({ storeId }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      bills,
+    });
+  } catch (err) {
+    console.error("Billing history Error:", err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+exports.productBillHistory = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const storeId = req.headers["store-id"];
+    const userId = req.headers["user-id"];
+
+    if (!storeId) {
+      return res.status(400).json({ message: "Store ID is required" });
+    }
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const bills = await Bill.aggregate([
+      {
+        $match: {
+          storeId: new mongoose.Types.ObjectId(storeId),
+        },
+      },
+
+      { $unwind: "$items" },
+
+      {
+        $match: {
+          "items.productId": new mongoose.Types.ObjectId(productId),
+        },
+      },
+
+      {
+        $project: {
+          _id: 0,
+          billDate: "$createdAt",          // 📅
+          soldQty: "$items.quantity",      // 📦
+          price: "$items.price",           // 💰 (per unit)
+          totalPrice: "$totalAmount",      // 💵 (already with tax ✅)
+          invoiceId: "$_id",               // 🧾
+        },
+      },
+
+      { $sort: { billDate: -1 } },
+    ]);
 
     res.status(200).json({
       success: true,

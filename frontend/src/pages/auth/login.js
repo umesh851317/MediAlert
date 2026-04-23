@@ -128,11 +128,11 @@ function Login() {
           />
 
           {/* Forgot Password */}
-          <div className="flex items-center justify-end text-sm">
+          {/* <div className="flex items-center justify-end text-sm">
             <a href="/forgot-password" className="text-blue-600 text-sm hover:underline">
               Forgot password?
             </a>
-          </div>
+          </div> */}
 
           {/* Login button */}
           <button
@@ -144,16 +144,27 @@ function Login() {
           </button>
 
           {/* OTP button */}
-          <button
+          {/* <button
             type="button"
             onClick={handleOTPLogin}
             className="w-full rounded-xl border border-gray-300 py-3 font-medium text-gray-700 hover:bg-gray-100"
             disabled={isLoading}
           >
             Login with OTP
-          </button>
+          </button> */}
         </form>
 
+        <div className="w-full text-center border rounded-xl bg-blue-100 border-gray-300 my-4 py-2 ">
+          <p>
+            Used <span className="underline text-blue-500">rahul@gmail.com</span> as admin 
+          </p>
+          <p>
+            Used <span className="underline text-blue-500">umesh@gmail.com</span> as staff 
+          </p>
+          <p>
+           up1234 as password
+          </p>
+        </div>
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-600">
           Need help?{" "}

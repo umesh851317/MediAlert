@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 
@@ -6,7 +6,7 @@ const API_URL =
   process.env.REACT_APP_API_URL ||
   "https://medialert-backend-tz4c.onrender.com";
 
-const AddCompo = ({ onClose, onAddSuccess }) => {
+const AddCompo = ({ onClose, onAddSuccess, product, isEdit }) => {
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -30,7 +30,7 @@ const AddCompo = ({ onClose, onAddSuccess }) => {
     e.preventDefault();
 
     const user = JSON.parse(sessionStorage.getItem("user"));
-    const userId = user?.token;   // currently your app stores userId inside token
+    const userId = user?._id || user?.id || user?.token;   // currently your app stores userId inside token
     const storeId = user?.storeId;
 
     if (!userId || !storeId) {
@@ -54,8 +54,14 @@ const AddCompo = ({ onClose, onAddSuccess }) => {
     };
 
     try {
-      const res = await fetch(`${API_URL}/api/inventory`  , {
-        method: "POST",
+      const url = isEdit
+        ? `http://localhost:5000/api/inventory/${product._id}`
+        : `http://localhost:5000/api/inventory`;
+
+      const method = isEdit ? "PUT" : "POST";
+      console.log("Editing ID:", product?._id);
+      const res = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
           "user-id": userId,
@@ -65,24 +71,45 @@ const AddCompo = ({ onClose, onAddSuccess }) => {
       });
 
       const data = await res.json();
-
+      
+      
       if (!res.ok) {
-        alert(data.message || "Failed to add stock");
+        alert(data.message || "Operation failed");
         return;
       }
-
-      alert("Stock added successfully");
-
+      
+      alert(isEdit ? "Product updated successfully" : "Stock added successfully");
+      
       if (onAddSuccess) {
-        onAddSuccess(data);
+        onAddSuccess();
       }
-
+      
       onClose();
     } catch (err) {
-      console.error("Add Stock Error:", err);
+      console.error("Error:", err);
       alert("Server error");
+      console.log(userId,storeId);
     }
   };
+
+  useEffect(() => {
+    if (product) {
+      setFormData({
+        name: product.name || "",
+        category: product.category || "",
+        brand: product.brand || "",
+        batchNumber: product.batchNumber || "",
+        quantity: product.quantity || "",
+        minStock: product.reorderLevel || "",
+        expiryDate: product.expiryDate?.split("T")[0] || "",
+        purchasePrice: product.purchasePrice || "",
+        sellingPrice: product.sellingPrice || "",
+        supplierName: product.supplierName || "",
+        unit: product.unit || "",
+        packSize: product.packSize || "1",
+      });
+    }
+  }, [product]);
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4">

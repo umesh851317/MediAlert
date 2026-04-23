@@ -85,3 +85,30 @@ exports.getAllSales = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+exports.getProductSales = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const storeId = req.headers["store-id"];
+
+    if (!productId) {
+      return res.status(400).json({ message: "Product ID required" });
+    }
+
+    if (!storeId) {
+      return res.status(400).json({ message: "Store ID required" });
+    }
+
+    const sales = await Sale.find({
+      productId,
+      storeId,
+    })
+      .select("month quantitySold -_id") // ✅ only required fields
+      .sort({ month: 1 });
+    // ✅ directly send array
+    res.status(200).json(sales);
+
+  } catch (err) {
+    console.error("Product sales error:", err);
+    res.status(500).json({ message: err.message });
+  }
+};

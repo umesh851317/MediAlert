@@ -44,7 +44,7 @@ const NavBar = ({ toggleSidebar }) => {
       </div>
 
       {/* Search Bar */}
-      <div className="flex-1 px-5 max-w-md">
+      {/* <div className="flex-1 px-5 max-w-md">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
           <input
@@ -53,16 +53,16 @@ const NavBar = ({ toggleSidebar }) => {
             className="w-full h-10 pl-10 pr-3 rounded-xl border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* Right Section */}
       <div className="flex items-center gap-4 relative">
 
         {/* Notification */}
-        <button className="relative">
+        {/* <button className="relative">
           <Bell className="h-5 w-5 text-gray-600" />
           <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
-        </button>
+        </button> */}
 
         {/* User Dropdown */}
         <div className="relative">
@@ -87,12 +87,12 @@ const NavBar = ({ toggleSidebar }) => {
           {/* Dropdown */}
           {open && (
             <div className="absolute right-0 mt-2 w-40 bg-white border rounded-xl shadow-lg z-50">
-              <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50">
+              {/* <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50">
                 Profile
               </button>
               <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50">
                 Settings
-              </button>
+              </button> */}
               <button
                 onClick={handleLogout}
                 className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"

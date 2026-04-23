@@ -4,6 +4,7 @@ const {
        createSale,
        bulkCreateSales,
        getAllSales,
+       getProductSales
 } = require("../controllers/sales.controller")
 
 // POST single sale
@@ -14,5 +15,7 @@ router.post("/bulk", bulkCreateSales)
 
 // GET all sales (forecasting)
 router.get("/", getAllSales)
+
+router.get("/product/:productId", getProductSales);
 
 module.exports = router

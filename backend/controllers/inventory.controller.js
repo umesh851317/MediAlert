@@ -6,11 +6,12 @@ exports.addItem = async (req, res) => {
     const item = await Inventory.create({
       ...req.body,
       storeId: req.user.storeId,
-      userId: req.user.userId
+      userId: req.user.id   // ✅ FIXED
     })
 
     res.status(201).json(item)
   } catch (err) {
+    console.error("ADD ERROR:", err); // 🔥 add this
     res.status(500).json({ message: err.message })
   }
 }
@@ -37,7 +38,7 @@ exports.addMultipleItems = async (req, res) => {
 exports.getAllItems = async (req, res) => {
   try {
     const items = await Inventory.find({
-      storeId: req.user.storeId.toString()  
+      storeId: req.user.storeId.toString()
     }).sort({ createdAt: -1 })
 
     // const items = await Inventory.find()
@@ -53,11 +54,7 @@ exports.getAllItems = async (req, res) => {
 exports.updateItem = async (req, res) => {
   try {
     const updated = await Inventory.findOneAndUpdate(
-      {
-        _id: req.params.id,
-        userId: req.user.id,
-        storeId: req.user.storeId
-      },
+      { _id: req.params.id },
       req.body,
       { new: true }
     )
@@ -77,19 +74,18 @@ exports.deleteItem = async (req, res) => {
   try {
     const deleted = await Inventory.findOneAndDelete({
       _id: req.params.id,
-      userId: req.user.id,
-      storeId: req.user.storeId
-    })
+      
+    });
 
     if (!deleted) {
-      return res.status(404).json({ message: "Item not found" })
+      return res.status(404).json({ message: "Item not found" });
     }
 
-    res.json({ message: "Item deleted" })
+    res.json({ message: "Item deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message })
+    res.status(500).json({ message: err.message });
   }
-}
+};
 
 
 exports.searchInventory = async (req, res) => {

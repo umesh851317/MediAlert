@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { AlertTriangle, Clock, Edit, Eye, XCircle } from "lucide-react";
+import { AlertTriangle, Clock, Eye, Trash2, XCircle } from "lucide-react";
+import ProductVeiw from "../prooduct/productVeiw";
 
 
 const API_URL =
@@ -14,6 +15,8 @@ const Expiry = () => {
        const [dayFilter, setDayFilter] = useState("all");
        const [categoryFilter, setCategoryFilter] = useState("all");
        const [statusFilter, setStatusFilter] = useState("all");
+       const [selectedProduct, setSelectedProduct] = useState(null);
+       const [isView, setIsView] = useState(false);
 
        const getDaysRemaining = (expiryDate) => {
               if (!expiryDate) return 0;
@@ -78,6 +81,41 @@ const Expiry = () => {
 
               return matchesSearch && matchesCategory && statusMatch && matchesDays;
        });
+
+       const handleDelete = async (id) => {
+              const confirmDelete = window.confirm("Are you sure you want to delete?");
+              if (!confirmDelete) return;
+
+              try {
+                     const user = JSON.parse(sessionStorage.getItem("user"));
+                     const userId = user?._id; // FIXED
+                     const storeId = user?.storeId;
+
+                     const res = await fetch(`http://localhost:5000/api/inventory/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                   "user-id": userId,
+                                   "store-id": storeId,
+                            },
+                     });
+
+                     const data = await res.json();
+
+                     if (!res.ok) {
+                            alert(data.message || "Delete failed");
+                            return;
+                     }
+
+                     // ✅ remove from UI instantly (no reload)
+                     setProducts((prev) => prev.filter((item) => item._id !== id));
+
+                     alert("Deleted successfully");
+
+              } catch (err) {
+                     console.error("Delete error:", err);
+                     alert("Server error");
+              }
+       };
 
        useEffect(() => {
               const fetchProducts = async () => {
@@ -151,6 +189,12 @@ const Expiry = () => {
                             </div>
                      </div>
 
+                     {isView && (
+                            <ProductVeiw
+                                   product={selectedProduct}
+                                   onClose={() => setIsView(false)}
+                            />
+                     )}
                      {/* TABLE */}
                      <div className="w-full h-full bg-white shadow-md rounded-xl overflow-x-auto">
                             <div className="px-4 py-3 flex gap-4 items-center border-b max-sm:flex-wrap">
@@ -265,11 +309,17 @@ const Expiry = () => {
 
                                                                       <td className="px-4 py-3 text-right">
                                                                              <div className="flex justify-end gap-4">
-                                                                                    <button className="text-gray-500 hover:text-blue-600">
+                                                                                    <button onClick={() => {
+                                                                                           setSelectedProduct(item);
+                                                                                           setIsView(true);
+                                                                                    }} className="text-gray-500 hover:text-blue-600">
                                                                                            <Eye size={20} />
                                                                                     </button>
-                                                                                    <button className="text-gray-500 hover:text-green-600">
-                                                                                           <Edit size={20} />
+                                                                                    <button
+                                                                                           onClick={() => handleDelete(item._id)}
+                                                                                           className="text-red-500"
+                                                                                    >
+                                                                                           <Trash2 size={18} />
                                                                                     </button>
                                                                              </div>
                                                                       </td>
