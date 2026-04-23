@@ -43,10 +43,11 @@ function Login() {
 
       // Save in context + sessionStorage
       login({
+        id: data.id,
         name: data.name || "User",
         email: data.email || formData.email,
         role: data.role,
-        token: data.id,
+        token: data.token,
         storeId: data.storeId,
       });
 
