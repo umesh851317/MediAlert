@@ -63,9 +63,9 @@ function Login() {
     }
   };
 
-  const handleOTPLogin = () => {
-    console.log("OTP login requested");
-  };
+  // const handleOTPLogin = () => {
+  //   console.log("OTP login requested");
+  // };
 
   useEffect(() => {
     if (user) {

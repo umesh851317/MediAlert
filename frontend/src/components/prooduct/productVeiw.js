@@ -202,7 +202,7 @@ const ProductVeiw = ({ product, onClose }) => {
           })}
         </div>
 
-        {/* CHART */}
+        {/* CHART*/}
         <div className="p-6 bg-white rounded-xl shadow">
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={chartData}>

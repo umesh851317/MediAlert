@@ -181,7 +181,10 @@ const Product = () => {
       {isView && (
         <ProductVeiw
           product={selectedProduct}
-          onClose={() => setIsView(false)}
+          onClose={() => {
+            setIsView(false);
+            setSelectedProduct(null);
+          }}
         />
       )}
 
