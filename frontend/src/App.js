@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Login from './pages/auth/login'
+import Register from './pages/auth/register'
+import ForgotPassword from './pages/auth/forgotPassword'
 import Admin from './pages/admin/admin'
 import Staff from './pages/staff/staff'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -11,6 +13,8 @@ const App = () => {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {/* Admin Protected */}
           <Route

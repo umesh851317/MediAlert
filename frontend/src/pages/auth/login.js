@@ -128,12 +128,15 @@ function Login() {
             required
           />
 
-          {/* Forgot Password */}
-          {/* <div className="flex items-center justify-end text-sm">
-            <a href="/forgot-password" className="text-blue-600 text-sm hover:underline">
+          <div className="flex items-center justify-end text-sm">
+            <button
+               type="button"
+               onClick={() => navigate("/forgot-password")}
+               className="text-blue-600 text-sm hover:underline"
+             >
               Forgot password?
-            </a>
-          </div> */}
+            </button>
+          </div>
 
           {/* Login button */}
           <button
@@ -168,9 +171,12 @@ function Login() {
         </div>
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-600">
-          Need help?{" "}
-          <button className="text-blue-600 font-medium hover:underline">
-            Contact Support
+          Don't have an account?{" "}
+          <button 
+             onClick={() => navigate("/register")}
+             className="text-blue-600 font-medium hover:underline"
+          >
+            Sign up
           </button>
         </div>
       </div>
