@@ -4,9 +4,13 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+
 app.use(
   cors({
-    origin: "*"
+    origin: "https://medi-alert-sigma.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 // Store 
