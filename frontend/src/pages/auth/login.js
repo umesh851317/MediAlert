@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const API_URL =
-  process.env.REACT_APP_API_URL ||
-  "http://localhost:3000"
+  process.env.REACT_APP_API_URL
 
 function Login() {
   const navigate = useNavigate();
