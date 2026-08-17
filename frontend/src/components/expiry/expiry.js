@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { AlertTriangle, Clock, Eye, Trash2, XCircle } from "lucide-react";
 import ProductVeiw from "../prooduct/productVeiw";
 
-
 const API_URL =
-       process.env.REACT_APP_API_URL ||
-       "https://medialert-backend-tz4c.onrender.com";
-
-
+  process.env.REACT_APP_API_URL ||
+       "http://localhost:3000"
+  
 const Expiry = () => {
        const [products, setProducts] = useState([]);
        const [loading, setLoading] = useState(true);

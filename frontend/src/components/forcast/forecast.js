@@ -9,9 +9,9 @@ import SummaryCard from "./SummaryCard";
 
 
 const API_URL =
-       process.env.REACT_APP_API_URL ||
-       "https://medialert-backend-tz4c.onrender.com";
-
+  process.env.REACT_APP_API_URL ||
+       "http://localhost:3000"
+  
 
 const Forecast = () => {
        const [data, setData] = useState([]);

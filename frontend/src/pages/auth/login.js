@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
-  "https://medialert-backend-tz4c.onrender.com";
+  "http://localhost:3000"
 
 function Login() {
   const navigate = useNavigate();
@@ -130,10 +130,10 @@ function Login() {
 
           <div className="flex items-center justify-end text-sm">
             <button
-               type="button"
-               onClick={() => navigate("/forgot-password")}
-               className="text-blue-600 text-sm hover:underline"
-             >
+              type="button"
+              onClick={() => navigate("/forgot-password")}
+              className="text-blue-600 text-sm hover:underline"
+            >
               Forgot password?
             </button>
           </div>
@@ -160,21 +160,21 @@ function Login() {
 
         <div className="w-full text-center border rounded-xl bg-blue-100 border-gray-300 my-4 py-2 ">
           <p>
-            Used <span className="underline text-blue-500">rahul@gmail.com</span> as admin 
+            Used <span className="underline text-blue-500">rahul@gmail.com</span> as admin
           </p>
           <p>
-            Used <span className="underline text-blue-500">umesh@gmail.com</span> as staff 
+            Used <span className="underline text-blue-500">umesh@gmail.com</span> as staff
           </p>
           <p>
-           up1234 as password
+            up1234 as password
           </p>
         </div>
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <button 
-             onClick={() => navigate("/register")}
-             className="text-blue-600 font-medium hover:underline"
+          <button
+            onClick={() => navigate("/register")}
+            className="text-blue-600 font-medium hover:underline"
           >
             Sign up
           </button>

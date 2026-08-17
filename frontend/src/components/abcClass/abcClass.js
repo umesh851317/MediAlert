@@ -4,7 +4,7 @@ import ProductTable from "./productTable";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
-  "https://medialert-backend-tz4c.onrender.com";
+  "http://localhost:3000"
 
 const AbcClass = () => {
        const [abcFilter, setAbcFilter] = useState("all");

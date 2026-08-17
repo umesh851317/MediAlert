@@ -4,7 +4,11 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-
+app.use(
+  cors({
+    origin: "*"
+  })
+);
 // Store 
 app.use("/api/store", require("./routes/store.routes"))
 

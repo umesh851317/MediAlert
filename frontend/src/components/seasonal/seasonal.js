@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
-  "https://medialert-backend-tz4c.onrender.com";
+  "http://localhost:3000"
 
 const Seasonal = () => {
   const [categoryData, setCategoryData] = useState([]);

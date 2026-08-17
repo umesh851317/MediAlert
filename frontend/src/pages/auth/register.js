@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
-  "https://medialert-backend-tz4c.onrender.com";
+  "http://localhost:3000"
 
 function Register() {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ function Register() {
             {errorMsg}
           </p>
         )}
-        
+
         {/* Success */}
         {successMsg && (
           <p className="text-sm text-green-700 mb-4 p-2 bg-green-50 rounded">
@@ -168,9 +168,9 @@ function Register() {
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <button 
-             onClick={() => navigate("/")}
-             className="text-blue-600 font-medium hover:underline"
+          <button
+            onClick={() => navigate("/")}
+            className="text-blue-600 font-medium hover:underline"
           >
             Log in
           </button>

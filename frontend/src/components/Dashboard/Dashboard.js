@@ -4,8 +4,8 @@ import Charts from "../charts";
 import StatCard from "./stateCard";
 
 const API_URL =
-       process.env.REACT_APP_API_URL ||
-       "https://medialert-backend-tz4c.onrender.com";
+  process.env.REACT_APP_API_URL ||
+  "http://localhost:3000"
 
 const Dashboard = () => {
        const [stats, setStats] = useState({
